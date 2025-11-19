@@ -1,12 +1,57 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
 import Header from "./components/Header";
+import AddTodo from "./components/AddTodo";
+import Todos from "./components/Todos";
+import About from "./components/About";
+
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import type { Todo } from "./types/Todo";
 
 function App() {
+  const initTodo: Todo[] = localStorage.getItem("todos")
+    ? JSON.parse(localStorage.getItem("todos")!)
+    : [];
+
+  const [todos, setTodos] = useState<Todo[]>(initTodo);
+
+  const onDelete = (todo: Todo) => {
+    console.log("I am on delete", todo);
+    const updatedTodos = todos.filter((e) => e.sno !== todo.sno);
+    setTodos(updatedTodos);
+  };
+
+  const addTodo = (title: string, desc: string) => {
+    console.log("Adding todo:", title, desc);
+
+    const sno = todos.length === 0 ? 0 : todos[todos.length - 1].sno + 1;
+
+    const myTodo: Todo = { sno, title, desc };
+
+    setTodos([...todos, myTodo]);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
   return (
     <Router>
-      <Header/>
+      <Header />
+
       <Routes>
-        
+        <Route
+          path="/"
+          element={
+            <>
+              <AddTodo addTodo={addTodo} />
+              <Todos todos={todos} onDelete={onDelete} />
+            </>
+          }
+        />
+
+        <Route path="/about" element={<About />} />
       </Routes>
     </Router>
   );

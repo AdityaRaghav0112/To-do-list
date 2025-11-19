@@ -1,11 +1,21 @@
-import React from 'react'
+import {Link} from 'react-router-dom'
 
 const Header = () => {
+  const navLinks = [
+    {id: '', title: 'home'},
+    {id: 'about', title: 'About'}
+  ]
+
   return (
     <div>
-      <h1 className='text-3xl'>This is Header</h1>
+      <ul>
+        {navLinks.map((link) => (
+          <li key={link.id}><Link to={`/${link.id}`}>{link.title}</Link></li>
+        ))}
+      </ul>
     </div>
   )
 }
+
 
 export default Header
