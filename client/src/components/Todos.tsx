@@ -5,9 +5,10 @@ import type { Todo } from "../types/Todo";
 interface TodosProps {
   todos: Todo[];
   onDelete: (todo: Todo) => void;
+  onComplete: (todo: Todo) => void;
 }
 
-const Todos: React.FC<TodosProps> = ({ todos, onDelete }) => {
+const Todos: React.FC<TodosProps> = ({ todos, onDelete, onComplete }) => {
 
   return (
     <div className="w-screen flex flex-col items-center mt-20">  
@@ -18,7 +19,7 @@ const Todos: React.FC<TodosProps> = ({ todos, onDelete }) => {
         ? <p className="text-lg text-gray-600">No todos to display !!!</p>
         : todos.map((todo) => (
             <React.Fragment key={todo.sno}>
-              <TodoItem todo={todo} onDelete={onDelete} />
+              <TodoItem todo={todo} onDelete={onDelete} onComplete={onComplete}/>
             </React.Fragment>
           ))}
     </div>

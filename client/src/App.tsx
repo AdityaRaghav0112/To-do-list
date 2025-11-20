@@ -18,6 +18,13 @@ function App() {
 
   const [todos, setTodos] = useState<Todo[]>(initTodo);
 
+  const onComplete = (todo: Todo) => {
+  const updatedTodos = todos.map((t) =>
+    t.sno === todo.sno ? { ...t, completed: !t.completed } : t
+  );
+  setTodos(updatedTodos);
+};
+
   const onDelete = (todo: Todo) => {
     console.log("I am on delete", todo);
     const updatedTodos = todos.filter((e) => e.sno !== todo.sno);
@@ -48,7 +55,7 @@ function App() {
           element={
             <>
               <AddTodo addTodo={addTodo} />
-              <Todos todos={todos} onDelete={onDelete} />
+              <Todos todos={todos} onDelete={onDelete} onComplete={onComplete}/>
             </>
           }
         />
@@ -61,7 +68,7 @@ function App() {
           element={
             <>
               <AddTodo addTodo={addTodo} />
-              <Todos todos={todos} onDelete={onDelete} />
+              <Todos todos={todos} onDelete={onDelete} onComplete={onComplete}/>
             </>
           }
         />
