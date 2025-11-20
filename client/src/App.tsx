@@ -25,6 +25,20 @@ function App() {
   setTodos(updatedTodos);
 };
 
+const startEdit = (todo: Todo) => {
+  const updated = todos.map((t) =>
+    t.sno === todo.sno ? { ...t, editing: true } : t
+  );
+  setTodos(updated);
+};
+
+const updateTodo = (sno: number, newTitle: string) => {
+  const updated = todos.map((t) =>
+    t.sno === sno ? { ...t, title: newTitle, editing: false } : t
+  );
+  setTodos(updated);
+};
+
   const onDelete = (todo: Todo) => {
     console.log("I am on delete", todo);
     const updatedTodos = todos.filter((e) => e.sno !== todo.sno);
@@ -55,7 +69,8 @@ function App() {
           element={
             <>
               <AddTodo addTodo={addTodo} />
-              <Todos todos={todos} onDelete={onDelete} onComplete={onComplete}/>
+              <Todos todos={todos} onDelete={onDelete} onComplete={onComplete}
+              startEdit={startEdit} updateTodo={updateTodo}/>
             </>
           }
         />
@@ -68,7 +83,7 @@ function App() {
           element={
             <>
               <AddTodo addTodo={addTodo} />
-              <Todos todos={todos} onDelete={onDelete} onComplete={onComplete}/>
+              <Todos todos={todos} onDelete={onDelete} onComplete={onComplete} startEdit={startEdit} updateTodo={updateTodo}/>
             </>
           }
         />
