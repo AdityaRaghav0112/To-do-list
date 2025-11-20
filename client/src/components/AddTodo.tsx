@@ -1,59 +1,43 @@
 import React, { useState } from "react";
 
 interface AddTodoProps {
-  addTodo: (title: string, desc: string) => void;
+  addTodo: (title: string) => void;
 }
 
 const AddTodo: React.FC<AddTodoProps> = ({ addTodo }) => {
   const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!title || !desc) {
-      alert("Title or Description cannot be blank");
+    if (!title) {
+      alert("Todo is empty");
       return;
     }
-    addTodo(title, desc);
+    addTodo(title);
     setTitle("");
-    setDesc("");
   };
 
   return (
-    <div className="container my-3">
-      <h3>Add a Todo</h3>
-
-      <form onSubmit={submit}>
-        <div className="mb-3">
-          <label htmlFor="title" className="form-label">
-            Todo Title
-          </label>
+    <div className="w-screen flex flex-col items-center">
+      <div className="max-w-5xl w-full">
+        <form onSubmit={submit} className="flex gap-2">
           <input
             type="text"
             id="title"
-            className="form-control"
+            placeholder="Add a task..."
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            className="border border-gray-400 p-2 rounded-lg w-full text-lg"
           />
-        </div>
 
-        <div className="mb-3">
-          <label htmlFor="desc" className="form-label">
-            Todo Description
-          </label>
-          <input
-            type="text"
-            id="desc"
-            className="form-control"
-            value={desc}
-            onChange={(e) => setDesc(e.target.value)}
-          />
-        </div>
-
-        <button type="submit" className="btn btn-sm btn-success">
-          Add Todo
-        </button>
-      </form>
+          <button
+            type="submit"
+            className="bg-blue-400 hover:bg-blue-600 duration-300 text-white px-4 py-2 rounded-lg"
+          >
+            Add Todo
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

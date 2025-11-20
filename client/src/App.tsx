@@ -22,12 +22,12 @@ function App() {
     setTodos(updatedTodos);
   };
 
-  const addTodo = (title: string, desc: string) => {
-    console.log("Adding todo:", title, desc);
+  const addTodo = (title: string,) => {
+    console.log("Adding todo:", title);
 
     const sno = todos.length === 0 ? 0 : todos[todos.length - 1].sno + 1;
 
-    const myTodo: Todo = { sno, title, desc };
+    const myTodo: Todo = { sno, title };
 
     setTodos([...todos, myTodo]);
   };

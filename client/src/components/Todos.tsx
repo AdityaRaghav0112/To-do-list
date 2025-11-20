@@ -10,17 +10,18 @@ interface TodosProps {
 const Todos: React.FC<TodosProps> = ({ todos, onDelete }) => {
 
   return (
-    <div className="container">
-      <h3 className="my-3">Todos list</h3>
+    <div className="w-screen flex flex-col items-center mt-20">  
+    <div className="max-w-5xl w-full">
+      <h3 className="my-3 text-3xl font-semibold">Todos list</h3>
 
       {todos.length === 0
-        ? "No todos to display"
+        ? <p className="text-lg text-gray-600">No todos to display !!!</p>
         : todos.map((todo) => (
             <React.Fragment key={todo.sno}>
               <TodoItem todo={todo} onDelete={onDelete} />
-              <hr />
             </React.Fragment>
           ))}
+    </div>
     </div>
   );
 };
