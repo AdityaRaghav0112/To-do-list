@@ -26,7 +26,7 @@ router.post("/register", async (req, res) => {
     let user = await User.findOne({ email });
 
     if (user)
-      return res.status(400).json({ message: "User already exists" });
+      return res.status(400).json({ success: false, message: "User already exists" });
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -37,13 +37,16 @@ router.post("/register", async (req, res) => {
     });
 
     res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
+      success: true,
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+      },
       token: generateToken(user._id.toString()),
     });
   } catch (err) {
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ success: false, message: "Server error" });
   }
 });
 
@@ -55,21 +58,24 @@ router.post("/login", async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user)
-      return res.status(400).json({ message: "Invalid credentials" });
+      return res.status(400).json({ success: false, message: "Invalid credentials" });
 
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch)
-      return res.status(400).json({ message: "Invalid credentials" });
+      return res.status(400).json({ success: false, message: "Invalid credentials" });
 
     res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
+      success: true,
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+      },
       token: generateToken(user._id.toString()),
     });
   } catch {
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ success: false, message: "Server error" });
   }
 });
 

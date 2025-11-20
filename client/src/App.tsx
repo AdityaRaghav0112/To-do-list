@@ -3,11 +3,13 @@ import Header from "./components/Header";
 import AddTodo from "./components/AddTodo";
 import Todos from "./components/Todos";
 import About from "./components/About";
-
+import Footer from './components/Footer'
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import type { Todo } from "./types/Todo";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 function App() {
   const initTodo: Todo[] = localStorage.getItem("todos")
@@ -52,7 +54,20 @@ function App() {
         />
 
         <Route path="/about" element={<About />} />
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/signup" element={<Signup/>}/>
+        <Route
+          path="/profile"
+          element={
+            <>
+              <AddTodo addTodo={addTodo} />
+              <Todos todos={todos} onDelete={onDelete} />
+            </>
+          }
+        />
       </Routes>
+
+      <Footer/>
     </Router>
   );
 }

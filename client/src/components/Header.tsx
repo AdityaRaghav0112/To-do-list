@@ -1,60 +1,86 @@
-import { Link } from "react-router-dom";
-import { CircleCheckBig } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { CircleCheckBig, User } from "lucide-react";
 
 const Header = () => {
-  const [user, setUser] = useState<{ name: string } | null>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
-  // Check login state on load
+  // Detect login / logout
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const savedUser = localStorage.getItem("user");
+    setIsLoggedIn(!!token);
 
-    if (token && savedUser) {
-      setUser(JSON.parse(savedUser));
-    }
+    const handleStorageChange = () => {
+      const token = localStorage.getItem("token");
+      setIsLoggedIn(!!token);
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
+  // Logout function
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    setUser(null);
+
+    // Notify app
+    window.dispatchEvent(new Event("storage"));
+
+    setDropdownOpen(false);
+    navigate("/");
+  };
+
+  const handleProfileClick = () => {
+    setDropdownOpen(!dropdownOpen);
   };
 
   return (
-    <div className="w-screen flex flex-col items-center">
-      <div className="max-w-5xl w-full p-5">
-        <div className="first-heading flex justify-between items-center">
-          <div className="logo flex gap-2 items-center">
+    <div className="w-screen flex flex-col items-center relative ">
+      <div className="max-w-5xl w-full p-5 bg-blue-200 rounded-lg mb-10">
+        <div className="first-heading flex justify-between relative">
+
+          {/* Logo */}
+          <div className="logo flex gap-2">
             <CircleCheckBig className="size-10 text-blue-600" />
             <h1 className="text-3xl font-bold">My Tasks</h1>
           </div>
 
-          {/* HEADER BUTTONS */}
-          {!user ? (
-            <Link
-              to="/login"
+          {/* RIGHT SIDE BUTTON */}
+          {!isLoggedIn ? (
+            <button
+              onClick={() => navigate("/login")}
               className="p-2 bg-blue-400 text-white rounded-lg font-semibold border-2 hover:border-blue-400 hover:bg-white hover:text-blue-400 duration-300 cursor-pointer"
             >
               Login / Signup
-            </Link>
+            </button>
           ) : (
-            <div className="flex items-center gap-4">
-              <span className="font-semibold">Hi, {user.name}</span>
-
+            <div className="relative">
+              {/* Profile Button */}
               <button
-                onClick={handleLogout}
-                className="p-2 bg-red-500 text-white rounded-lg font-semibold border-2 hover:border-red-500 hover:bg-white hover:text-red-500 duration-300 cursor-pointer"
+                onClick={handleProfileClick}
+                className="p-2 rounded-full border-2 hover:bg-blue-100 duration-300"
               >
-                Logout
+                <User className="size-7 text-blue-600" />
               </button>
+
+              {/* Dropdown Menu */}
+              {dropdownOpen && (
+                <div className="absolute right-0 mt-2 w-32 bg-white shadow-lg rounded-xl border">
+                  <button
+                    onClick={handleLogout}
+                    className="w-full text-left px-4 py-2 hover:bg-gray-100 rounded-lg"
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
             </div>
           )}
         </div>
-
-        <h1 className="py-8 text-5xl font-bold">
-          What's on your plate today?
-        </h1>
       </div>
     </div>
   );

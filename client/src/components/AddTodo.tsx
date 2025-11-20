@@ -19,7 +19,9 @@ const AddTodo: React.FC<AddTodoProps> = ({ addTodo }) => {
 
   return (
     <div className="w-screen flex flex-col items-center">
+      
       <div className="max-w-5xl w-full">
+        <h1 className="text-5xl font-bold mb-5">What's on your plate today?</h1>
         <form onSubmit={submit} className="flex gap-2">
           <input
             type="text"
