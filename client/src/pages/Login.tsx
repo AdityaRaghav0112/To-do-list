@@ -72,10 +72,10 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-orange-100 flex items-center justify-center p-4">
+    <div className="min-h-[48rem] bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-orange-600 mb-2">
+          <h1 className="text-3xl font-bold text-blue-600 mb-2">
             Welcome Back
           </h1>
           <p className="text-gray-600">Sign in to your account</p>
@@ -92,7 +92,7 @@ const Login = () => {
               value={formData.username}
               onChange={handleInputChange}
               required
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 transition-all"
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition-all"
             />
           </div>
 
@@ -107,7 +107,7 @@ const Login = () => {
               value={formData.password}
               onChange={handleInputChange}
               required
-              className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 transition-all"
+              className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition-all"
             />
 
             {/* Toggle Password */}
@@ -141,7 +141,7 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-orange-600 text-white py-3 rounded-lg font-semibold hover:bg-orange-700 transition-all disabled:opacity-50"
+            className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all disabled:opacity-50"
           >
             {loading ? "Signing in..." : "Sign In"}
           </button>
@@ -154,7 +154,7 @@ const Login = () => {
             <button
               type="button"
               onClick={() => navigate("/signup")}
-              className="ml-2 text-orange-600 hover:text-orange-700 font-semibold"
+              className="ml-2 text-blue-600 hover:text-blue-700 font-semibold cursor-pointer"
             >
               Sign Up
             </button>

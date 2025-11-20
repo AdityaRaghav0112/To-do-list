@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { CircleCheckBig, User } from "lucide-react";
 
 const Header = () => {
@@ -44,10 +44,12 @@ const Header = () => {
         <div className="first-heading flex justify-between relative">
 
           {/* Logo */}
+           <Link to={'/'}>
           <div className="logo flex gap-2">
             <CircleCheckBig className="size-10 text-blue-600" />
             <h1 className="text-3xl font-bold">My Tasks</h1>
           </div>
+          </Link>
 
           {/* RIGHT SIDE BUTTON */}
           {!isLoggedIn ? (

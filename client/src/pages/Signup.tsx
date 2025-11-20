@@ -65,11 +65,11 @@ const Signup: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-orange-100 flex items-center justify-center p-4">
+    <div className="min-h-[48rem] bg-gradient-to-br from-red-50 to-red-100 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-orange-600 mb-2">
-            Join Skivvy
+          <h1 className="text-3xl font-bold text-blue-600 mb-2">
+            Create Your Account
           </h1>
           <p className="text-gray-600">Create your account to get started</p>
         </div>
@@ -85,7 +85,7 @@ const Signup: React.FC = () => {
               value={formData.username}
               onChange={handleInputChange}
               required
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all"
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
             />
           </div>
 
@@ -99,7 +99,7 @@ const Signup: React.FC = () => {
               value={formData.email}
               onChange={handleInputChange}
               required
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all"
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
             />
           </div>
 
@@ -114,7 +114,7 @@ const Signup: React.FC = () => {
               onChange={handleInputChange}
               required
               minLength={6}
-              className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all"
+              className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bkue-500 focus:border-transparent outline-none transition-all"
             />
 
             <button
@@ -149,7 +149,7 @@ const Signup: React.FC = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-orange-600 text-white py-3 rounded-lg font-semibold hover:bg-orange-700 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? "Creating Account..." : "Sign Up"}
           </button>
@@ -161,7 +161,7 @@ const Signup: React.FC = () => {
             <button
               type="button"
               onClick={() => navigate("/login")}
-              className="ml-2 text-orange-600 hover:text-orange-700 font-semibold"
+              className="ml-2 text-blue-600 hover:text-blue-700 font-semibold"
             >
               Sign In
             </button>
@@ -171,11 +171,11 @@ const Signup: React.FC = () => {
         <div className="mt-6 text-center">
           <p className="text-xs text-gray-500">
             By signing up, you agree to our{" "}
-            <a href="#" className="text-orange-600 hover:underline">
+            <a href="#" className="text-blue-600 hover:underline">
               Terms of Service
             </a>{" "}
             and{" "}
-            <a href="#" className="text-orange-600 hover:underline">
+            <a href="#" className="text-blue-600 hover:underline">
               Privacy Policy
             </a>
           </p>

@@ -19,7 +19,6 @@ const AddTodo: React.FC<AddTodoProps> = ({ addTodo }) => {
 
   return (
     <div className="w-screen flex flex-col items-center">
-      
       <div className="max-w-5xl w-full">
         <h1 className="text-5xl font-bold mb-5">What's on your plate today?</h1>
         <form onSubmit={submit} className="flex gap-2">
@@ -29,12 +28,12 @@ const AddTodo: React.FC<AddTodoProps> = ({ addTodo }) => {
             placeholder="Add a task..."
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="border border-gray-400 p-2 rounded-lg w-full text-lg"
+            className="border border-gray-400 p-2 rounded-lg w-full text-lg focus:ring-4 focus:ring-blue-300 font-semibold text-gray-800"
           />
 
           <button
             type="submit"
-            className="bg-blue-400 hover:bg-blue-600 duration-300 text-white px-4 py-2 rounded-lg"
+            className="bg-blue-400 hover:bg-blue-600 duration-300 text-white px-4 py-2 rounded-lg font-semibold"
           >
             Add Todo
           </button>

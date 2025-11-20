@@ -20,11 +20,13 @@ const TodoItem: React.FC<TodoItemProps> = ({
 
   return (
     <div
-      className={`todo-item flex items-center justify-between mx-5 my-4 p-3 rounded-xl transition-all
-        ${todo.completed ? "bg-green-300" : "bg-blue-200"}
+      className={`todo-item flex font-semibold items-center justify-between mx-5 my-4 p-3 rounded-xl transition-all
+        ${todo.completed ? "bg-green-300 cursor-pointer" : "bg-blue-200 cursor-pointer"}
       `}
     >
-      {/* If editing, show input */}
+
+{/* If editing, show input ------------------------------------------*/}
+
       {todo.editing ? (
         <input
           className="text-xl p-2 rounded-lg w-full mr-3"
@@ -43,14 +45,14 @@ const TodoItem: React.FC<TodoItemProps> = ({
         {todo.editing ? (
           <>
             <button
-              className="bg-green-500 p-2 px-3 rounded-lg text-white"
+              className="bg-green-500 p-2 px-3 rounded-lg text-white cursor-pointer"
               onClick={() => updateTodo(todo.sno, tempTitle)}
             >
               Save
             </button>
 
             <button
-              className="bg-gray-500 p-2 px-3 rounded-lg text-white"
+              className="bg-gray-500 p-2 px-3 rounded-lg text-white cursor-pointer"
               onClick={() => updateTodo(todo.sno, todo.title)}
             >
               Cancel
