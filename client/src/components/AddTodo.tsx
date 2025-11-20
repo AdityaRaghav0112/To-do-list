@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {motion} from 'framer-motion'
 
 interface AddTodoProps {
   addTodo: (title: string) => void;
@@ -18,6 +19,10 @@ const AddTodo: React.FC<AddTodoProps> = ({ addTodo }) => {
   };
 
   return (
+    <motion.div
+      initial={{opacity:1, y:-20}}
+      animate={{opacity:1, y:0}}
+      transition={{duration:0.4}}>
     <div className="w-screen flex flex-col items-center">
       <div className="max-w-5xl w-full">
         <h1 className="text-5xl font-bold mb-5">What's on your plate today?</h1>
@@ -40,6 +45,7 @@ const AddTodo: React.FC<AddTodoProps> = ({ addTodo }) => {
         </form>
       </div>
     </div>
+    </motion.div>
   );
 };
 

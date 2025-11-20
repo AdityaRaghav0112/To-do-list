@@ -2,6 +2,7 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import { Eye, EyeOff, User, Mail, Lock } from "lucide-react";
 import { authAPI } from "../utils/api";
 import { useNavigate } from "react-router-dom";
+import {motion} from 'framer-motion'
 
 interface SignupFormData {
   username: string;
@@ -66,6 +67,10 @@ const Signup: React.FC = () => {
 
   return (
     <div className="min-h-[48rem] bg-gradient-to-br from-red-50 to-red-100 flex items-center justify-center p-4">
+      <motion.div
+        initial={{opacity:0, y:-20}}
+        animate={{opacity:1, y:0}}
+        transition={{duration:0.3}}>
       <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-blue-600 mb-2">
@@ -181,6 +186,7 @@ const Signup: React.FC = () => {
           </p>
         </div>
       </div>
+      </motion.div>
     </div>
   );
 };
