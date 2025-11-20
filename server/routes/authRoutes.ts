@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response, NextFunction } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User";
@@ -9,28 +9,24 @@ const router = express.Router();
 
 // Generate JWT
 const generateToken = (id: string): string => {
-  const payload: { id: string } = { id };
-
-  return (jwt.sign as any)(
-  { id },
-  ENV.JWT_SECRET,
-  { expiresIn: ENV.JWT_EXPIRES_IN }
-);
+  return (jwt.sign as any)({ id }, ENV.JWT_SECRET, {
+    expiresIn: ENV.JWT_EXPIRES_IN,
+  });
 };
 
 // REGISTER
-router.post("/register", async (req, res) => {
-  const { name, email, password } = req.body;
-
+router.post("/register", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    let user = await User.findOne({ email });
+    const { name, email, password } = req.body;
 
-    if (user)
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
       return res.status(400).json({ success: false, message: "User already exists" });
+    }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    user = await User.create({
+    const user = await User.create({
       name,
       email,
       password: hashedPassword,
@@ -46,24 +42,24 @@ router.post("/register", async (req, res) => {
       token: generateToken(user._id.toString()),
     });
   } catch (err) {
-    res.status(500).json({ success: false, message: "Server error" });
+    next(err); // Pass error to centralized handler
   }
 });
 
 // LOGIN
-router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-
+router.post("/login", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const user = await User.findOne({ email });
+    const { email, password } = req.body;
 
-    if (!user)
+    const user = await User.findOne({ email });
+    if (!user) {
       return res.status(400).json({ success: false, message: "Invalid credentials" });
+    }
 
     const isMatch = await bcrypt.compare(password, user.password);
-
-    if (!isMatch)
+    if (!isMatch) {
       return res.status(400).json({ success: false, message: "Invalid credentials" });
+    }
 
     res.json({
       success: true,
@@ -74,15 +70,19 @@ router.post("/login", async (req, res) => {
       },
       token: generateToken(user._id.toString()),
     });
-  } catch {
-    res.status(500).json({ success: false, message: "Server error" });
+  } catch (err) {
+    next(err); // Pass error to centralized handler
   }
 });
 
 // PROTECTED ROUTE
-router.get("/me", protect, async (req: any, res) => {
-  const user = await User.findById(req.user).select("-password");
-  res.json(user);
+router.get("/me", protect, async (req: any, res: Response, next: NextFunction) => {
+  try {
+    const user = await User.findById(req.user).select("-password");
+    res.json(user);
+  } catch (err) {
+    next(err); // Pass error to centralized handler
+  }
 });
 
 export default router;
